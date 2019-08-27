@@ -18,3 +18,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/getGenre', 'PagesController@getGenre');
+
+Route::get('/getMovie/{genre?}/{pageno?}', 'PagesController@getMovieList');
+
+Route::get('/getMovieDetail/{movieid}', 'PagesController@getMovieDetail');
