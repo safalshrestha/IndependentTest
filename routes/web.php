@@ -21,6 +21,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/genre', 'PagesController@getGenre');
 
-Route::get('/movie/{genre?}/{pageno?}', 'PagesController@getMovieList');
+Route::get('/movies/{genre?}/{pageno?}', 'PagesController@getMovieList');
 
 Route::get('/moviedetail/{movieid}', 'PagesController@getMovieDetail');

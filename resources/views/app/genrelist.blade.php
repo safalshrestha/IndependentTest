@@ -9,7 +9,8 @@
                 <hr>
                 <ul class="list-unstyled">
                 @foreach ($genrelist['genres'] as $genre)
-                    <li> <a href="/movie/{{ $genre['id'] }}/1"> {{  $genre['name'] }} </a> </li>
+                    <!-- <li> <a href="/movies/{{ $genre['id'] }}/1"> {{  $genre['name'] }} </a> </li> -->
+                    <li> <a href="#" class="load-movie-list" data-genre = "{{ $genre['id'] }}"> {{  $genre['name'] }} </a> </li>
                 @endforeach
                 </ul>
             </div>

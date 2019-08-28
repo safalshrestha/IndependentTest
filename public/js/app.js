@@ -49359,6 +49359,37 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
 var app = new Vue({
   el: '#app'
 });
+$(document).ready(function () {
+  //ajax load genre
+  $(document).on("click", '#load-genre', function (e) {
+    e.preventDefault();
+    $.get('/genre', function (data) {
+      $('#pagecontent').html(data);
+    });
+  }); //ajax load movie list based on genre
+
+  $(document).on("click", ".load-movie-list", function (e) {
+    e.preventDefault();
+    $.get('/movies/' + $(this).data('genre') + '/1', function (data) {
+      $('#pagecontent').html(data);
+    });
+  }); //ajax load movie detail
+
+  $(document).on("click", ".load-movie-detail", function (e) {
+    e.preventDefault();
+    $.get('/moviedetail/' + $(this).data('movieid'), function (data) {
+      $('#pagecontent').html(data);
+    });
+  }); //ajax change pages
+
+  $(document).on("click", ".load-movie-page", function (e) {
+    e.preventDefault();
+    var url = window.location.href;
+    $.get(url + '?pageno=' + $(this).data('moviepage'), function (data) {
+      $('#pagecontent').html(data);
+    });
+  });
+});
 
 /***/ }),
 

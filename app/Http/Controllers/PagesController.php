@@ -43,12 +43,23 @@ class PagesController extends Controller
         $statusCode = $response->getStatusCode();
         $genrelist = json_decode($response->getBody()->getContents(), true);
         //dd($genrelist);
+        if (request()->ajax())
+        {
+            $sections = view('app.genrelist', compact('genrelist'))->renderSections();
+            return $sections['content'];
+            //return view('app.genrelist', compact('genrelist'));
+        }
+
         return view('app.genrelist', compact('genrelist'));
     }
 
-    public function getMovieList($genre = "NULL", $pageno = 'NULL') {
+    public function getMovieList(Request $request, $genre = NULL, $pageno = NULL) {
         $client = new Client(['base_uri' => $this->baseURL]);
-
+        //dd($pageno);
+        if ($pageno == NULL) {
+            echo $request->input('pageno');
+            $pageno = $request->input('pageno');
+        }
         $response = $client->request('GET', $this->apiDiscoverMovieURL, [
             'query' => [
                 'language' => $this->apiLanguage,
@@ -60,6 +71,12 @@ class PagesController extends Controller
         $statusCode = $response->getStatusCode();
         $movielist = json_decode($response->getBody()->getContents(), true);
         //dd($movielist);
+        if (request()->ajax())
+        {
+            $sections = view('app.movielist', compact('movielist'))->renderSections();
+            return $sections['content'];
+            //return view('app.genrelist', compact('genrelist'));
+        }
         return view('app.movielist', compact('movielist'));
     }
 
@@ -76,6 +93,12 @@ class PagesController extends Controller
         $imdburl = $this->imdburl;
         $statusCode = $response->getStatusCode();
         $moviedetail = json_decode($response->getBody()->getContents(),true);
+        if (request()->ajax())
+        {
+            $sections = view('app.moviedetail', compact('moviedetail','imageurl', 'imdburl'))->renderSections();
+            return $sections['content'];
+            //return view('app.genrelist', compact('genrelist'));
+        }
         return view('app.moviedetail', compact('moviedetail', 'imageurl', 'imdburl'));
     }
 

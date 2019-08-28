@@ -33,7 +33,8 @@
                         @if ($moviedetail['imdb_id'] != "")
                         <a href="{{ $imdburl.$moviedetail['imdb_id'] }}" class="btn btn-warning mt-4 float-left">Go to IMDB</a>
                         @endif
-                        <a href="{{ url()->previous() }}" class="btn btn-primary mt-4 float-right">Go Back</a>
+                        <!-- <a href="{{ url()->previous() }}" class="btn btn-primary mt-4 float-right">Go Back</a> -->
+                        <a href="" class="btn btn-primary mt-4 float-right" id="load-genre">Go to Home</a>
                     </div>
                 </div>
 

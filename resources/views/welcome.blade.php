@@ -15,8 +15,8 @@
                 <div class="card-body">
                     <h3> Welcome  {{ Auth::user()->name }} </h3>
                     <p> Lets Begin your Search </p>
-                    <button class = "btn btn-danger m-3"> Search by Genre </button>
-                    <button class = "btn btn-warning m-3"> Search by Name </button>
+                    <button id="load-genre" class = "btn btn-danger m-3"> Search by Genre </button>
+                    <button id="load-search" class = "btn btn-warning m-3"> Search by Name </button>
                 </div>
             </div>
             @endguest
