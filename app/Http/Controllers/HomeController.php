@@ -21,6 +21,8 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+    //not required and could be incorporated with the PagesController but just put here
+    //handled rendering of the index or welcome page.
     public function index()
     {
         if (request()->ajax())

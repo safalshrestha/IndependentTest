@@ -7,7 +7,7 @@ use GuzzleHttp\Client;
 
 class PagesController extends Controller
 {
-    //
+    //API PARAMETERS
     var $apikey =  "8b33d72074a553accc4d688b433f805c";
     var $baseURL = "https://api.themoviedb.org/3/";
     var $apiGenreURL = "genre/movie/list?";
@@ -17,6 +17,7 @@ class PagesController extends Controller
     var $apiLanguage = "en-US";
     var $imageurl = "https://image.tmdb.org/t/p/w500/";
     var $imdburl = "https://www.imdb.com/title/";
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -32,6 +33,7 @@ class PagesController extends Controller
         return view('home');
     }
 
+    //gets the list of genres
     public function getGenre(){
         $client = new Client(['base_uri' => $this->baseURL]);
 
@@ -54,6 +56,7 @@ class PagesController extends Controller
         return view('app.genrelist', compact('genrelist'));
     }
 
+    //Gets the movie list based on the genre id provided by the genre API
     public function getMovieList(Request $request, $genre = NULL, $pageno = NULL) {
         $client = new Client(['base_uri' => $this->baseURL]);
         //dd($pageno);
@@ -81,6 +84,7 @@ class PagesController extends Controller
         return view('app.movielist', compact('movielist'));
     }
 
+    //Get the detail of the movie based on the id of the movie
     public function getMovieDetail($movieid) {
         $client = new Client(['base_uri' => $this->baseURL]);
 
@@ -103,7 +107,8 @@ class PagesController extends Controller
         return view('app.moviedetail', compact('moviedetail', 'imageurl', 'imdburl'));
     }
 
-
+    //search movie based on the user query text
+    //if query strong is not supplied, an empty string is supplied to the api
     public function searchMovie(Request $request, $pageno = NULL) {
         $client = new Client(['base_uri' => $this->baseURL]);
         //dd($pageno);

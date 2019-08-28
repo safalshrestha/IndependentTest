@@ -49360,10 +49360,12 @@ var app = new Vue({
   el: '#app'
 });
 $(document).ready(function () {
+  //ajax loading of the register page
   $(document).on("click", '.load-register', function (e) {
     e.preventDefault();
     window.location = "/register";
-  });
+  }); //ajax login page
+
   $(document).on("click", '.load-login', function (e) {
     e.preventDefault();
     window.location = "/login";
