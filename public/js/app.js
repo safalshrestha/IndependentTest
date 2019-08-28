@@ -49360,7 +49360,22 @@ var app = new Vue({
   el: '#app'
 });
 $(document).ready(function () {
-  //ajax load genre
+  $(document).on("click", '.load-register', function (e) {
+    e.preventDefault();
+    window.location = "/register";
+  });
+  $(document).on("click", '.load-login', function (e) {
+    e.preventDefault();
+    window.location = "/login";
+  }); //load app start page
+
+  $(document).on("click", '#load-mainpage', function (e) {
+    e.preventDefault();
+    $.get('/home', function (data) {
+      $('#pagecontent').html(data);
+    });
+  }); //ajax load genre
+
   $(document).on("click", '#load-genre', function (e) {
     e.preventDefault();
     $.get('/genre', function (data) {
@@ -49370,7 +49385,7 @@ $(document).ready(function () {
 
   $(document).on("click", ".load-movie-list", function (e) {
     e.preventDefault();
-    $.get('/movies/' + $(this).data('genre') + '/1', function (data) {
+    $.get('/movies/' + $(this).data('genre'), function (data) {
       $('#pagecontent').html(data);
     });
   }); //ajax load movie detail
@@ -49384,8 +49399,23 @@ $(document).ready(function () {
 
   $(document).on("click", ".load-movie-page", function (e) {
     e.preventDefault();
-    var url = window.location.href;
-    $.get(url + '?pageno=' + $(this).data('moviepage'), function (data) {
+    $.get('/movies/?pageno=' + $(this).data('moviepage'), function (data) {
+      $('#pagecontent').html(data);
+    });
+  }); //search for movies
+
+  $(document).on("click", "#load-search", function (e) {
+    e.preventDefault();
+    var query = document.getElementById("searchterm");
+    $.get('/searchmovies/', function (data) {
+      $('#pagecontent').html(data);
+    });
+  }); //search for movies by name
+
+  $(document).on("click", "#searchmovie", function (e) {
+    e.preventDefault();
+    var query = $('#searchterm').val();
+    $.get('/searchmovies/?query=' + query, function (data) {
       $('#pagecontent').html(data);
     });
   });

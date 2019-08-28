@@ -24,3 +24,5 @@ Route::get('/genre', 'PagesController@getGenre');
 Route::get('/movies/{genre?}/{pageno?}', 'PagesController@getMovieList');
 
 Route::get('/moviedetail/{movieid}', 'PagesController@getMovieDetail');
+
+Route::get('/searchmovies/{query?}/{pageno?}', 'PagesController@searchMovie');

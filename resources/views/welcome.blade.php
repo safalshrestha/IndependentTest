@@ -8,8 +8,8 @@
             <h1> Your Movies DB </h1>
             <h2 class="font-italic"> All your movies in one place </h2>
             @guest
-                <button class = "btn btn-danger m-4"> Register Now </button>
-                <button class = "btn btn-warning m-4"> Login Now </button>
+                <button class = "load-register btn btn-danger m-4"> Register Now </button>
+                <button class = "load-login btn btn-warning m-4"> Login Now </button>
             @else
             <div class="card">
                 <div class="card-body">

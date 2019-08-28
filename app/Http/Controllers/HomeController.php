@@ -23,6 +23,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        if (request()->ajax())
+        {
+            $sections = view('welcome')->renderSections();
+            return $sections['content'];
+        }
+        return view('welcome');
     }
 }

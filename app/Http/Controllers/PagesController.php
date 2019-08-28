@@ -13,6 +13,7 @@ class PagesController extends Controller
     var $apiGenreURL = "genre/movie/list?";
     var $apiDiscoverMovieURL = "discover/movie/";
     var $apiGetMovieURL = "movie/";
+    var $apiSearchMovieURL = "search/movie";
     var $apiLanguage = "en-US";
     var $imageurl = "https://image.tmdb.org/t/p/w500/";
     var $imdburl = "https://www.imdb.com/title/";
@@ -57,7 +58,7 @@ class PagesController extends Controller
         $client = new Client(['base_uri' => $this->baseURL]);
         //dd($pageno);
         if ($pageno == NULL) {
-            echo $request->input('pageno');
+            //echo $request->input('pageno');
             $pageno = $request->input('pageno');
         }
         $response = $client->request('GET', $this->apiDiscoverMovieURL, [
@@ -102,4 +103,35 @@ class PagesController extends Controller
         return view('app.moviedetail', compact('moviedetail', 'imageurl', 'imdburl'));
     }
 
+
+    public function searchMovie(Request $request, $pageno = NULL) {
+        $client = new Client(['base_uri' => $this->baseURL]);
+        //dd($pageno);
+        if ($pageno == NULL) {
+            //echo $request->input('pageno');
+            $pageno = $request->input('pageno');
+            $query = $request->input('query');
+        }
+        if ($query == NULL) {
+            $query = " ";
+        }
+        $response = $client->request('GET', $this->apiSearchMovieURL, [
+            'query' => [
+                'language' => $this->apiLanguage,
+                'api_key' => $this->apikey,
+                'page' => $pageno,
+                'query' => $query
+            ]
+        ] );
+        $statusCode = $response->getStatusCode();
+        $movielist = json_decode($response->getBody()->getContents(), true);
+        //dd($movielist);
+        if (request()->ajax())
+        {
+            $sections = view('app.searchmovielist', compact('movielist'))->renderSections();
+            return $sections['content'];
+            //return view('app.genrelist', compact('genrelist'));
+        }
+        return view('app.searchmovielist', compact('movielist'));
+    }
 }
