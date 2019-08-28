@@ -14,7 +14,8 @@ class PagesController extends Controller
     var $apiDiscoverMovieURL = "discover/movie/";
     var $apiGetMovieURL = "movie/";
     var $apiLanguage = "en-US";
-
+    var $imageurl = "https://image.tmdb.org/t/p/w500/";
+    var $imdburl = "https://www.imdb.com/title/";
     public function __construct()
     {
         $this->middleware('auth');
@@ -40,8 +41,9 @@ class PagesController extends Controller
             ]
         ] );
         $statusCode = $response->getStatusCode();
-        $body = $response->getBody()->getContents();
-        return $body;
+        $genrelist = json_decode($response->getBody()->getContents(), true);
+        //dd($genrelist);
+        return view('app.genrelist', compact('genrelist'));
     }
 
     public function getMovieList($genre = "NULL", $pageno = 'NULL') {
@@ -56,8 +58,9 @@ class PagesController extends Controller
             ]
         ] );
         $statusCode = $response->getStatusCode();
-        $body = $response->getBody()->getContents();
-        return $body;
+        $movielist = json_decode($response->getBody()->getContents(), true);
+        //dd($movielist);
+        return view('app.movielist', compact('movielist'));
     }
 
     public function getMovieDetail($movieid) {
@@ -69,9 +72,11 @@ class PagesController extends Controller
                 'api_key' => $this->apikey
             ]
         ] );
+        $imageurl = $this->imageurl;
+        $imdburl = $this->imdburl;
         $statusCode = $response->getStatusCode();
-        $body = $response->getBody()->getContents();
-        return $body;
+        $moviedetail = json_decode($response->getBody()->getContents(),true);
+        return view('app.moviedetail', compact('moviedetail', 'imageurl', 'imdburl'));
     }
 
 }
